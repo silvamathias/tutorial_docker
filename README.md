@@ -1,5 +1,10 @@
 # tutorial_doker
 
+## Instalação
+
+Sequir as orientações da documentação clicando [aqui!](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+Dica: Usar o script que está na documentação clicando [aqui!](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script)
+
 ### Lista de comandos:
 
 #### Lista geral
