@@ -111,4 +111,54 @@ Obs: Verifique em **dockerhub** as tag's disponíveis. No exemplo abaixo é baix
 
 `docker run -dti debian:9`
 
---14
+### Exemplo MySQL
+
+#### Baixando imagem
+
+`docker pull mysql`
+
+#### Criando o container
+
+~~~shell
+docker rum -e MYSQL_ROOT_PASSWORD=Senha123 --name mysql-A -d -p 3306:3306 mysql
+# -e = configura variáveis de ambiente (MYSQL_ROOT_PASSWORD)
+# --name = nomeia o container
+# -d = deixa rodando em backgroud
+# -p = configura a porta
+# ao final informar a imagem usada (mysql)
+~~~
+
+#### Acessando o container para configurá-lo
+
+##### Acessando o container
+
+`docker exec -it mysql-A bash`
+
+##### Acessando o mysql como root
+
+`mysql -u root -p --protocol=tcp`
+
+#### Criando database
+
+
+`CREATE DATABASE TESTE;`
+
+Saia do **MySQK** e do **container** caso não tenha mais nada que queira configurar desta forma
+
+#### Verificando informações do container
+
+Obseve a faixa de *IP*
+
+`docker inspect mysql-A`
+
+#### Conectando ao *MySQL* diretamente do pc host
+
+Caso o IP *27.0.0.1* esteja configurado, o código abaixo irá funcionar
+
+`mysql -u root -p --protocol=tcp`
+
+#### Conectando ao *MySQL* através de uma máquina externa
+
+Use um **SGBD** de sua preferência para acessar o banco, lembrando que o IP informado deve ser o da máquina host do *docker*
+
+--16
