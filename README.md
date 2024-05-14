@@ -161,4 +161,77 @@ Caso o IP *27.0.0.1* esteja configurado, o código abaixo irá funcionar
 
 Use um **SGBD** de sua preferência para acessar o banco, lembrando que o IP informado deve ser o da máquina host do *docker*
 
---16
+### interromper um container
+
+#### Parar um container
+
+`docker stop nome_do_container`
+
+#### iniciando um container que foi pauado
+
+`docker start nome_do_container`
+
+#### Removendo um container
+
+**OBS:** Só pode remover um container qwue esteja pausado
+
+`docker rm nome_do_container`
+
+### Inspecionando um container
+
+`docker inspect nome_do_container`
+
+### Redirecionando volume de dados para uma pasta no PC host
+
+#### Volume tipo Bind
+esta ação deixa os dados do container salvos em uma pasta do PC, preservando os dados mesmo que o container seja deletado
+
+use as tag:
+
+`--volume=/pasta/do/pc/host:/pasta/dentro/do/container`
+
+O comando acima *--voluma* usa o método **Bind** para montar uma pasta do host dentro do container
+
+Pode criar uma pasta no host antecipadamente para guardar os dados e informá-la no comando acima
+
+uma opção é usar o comando:
+
+`--mount type=bind, src=/pasta/do/pc/host, dst=/pasta/dentro/do/container,ro`
+
+O comando `ro` é opcional caso queira que seja somente leitura
+ 
+#### Volume tipo naimed
+
+listar volumes
+
+`docker volume ls`
+
+os volumes ficam na pasta padrão do docker em */var/lib/docker/volumes*
+
+Os arquivos ficam dentro de cada volume na pasta *_data*
+
+crie um volume com o comando abaixo
+
+`docker volume create nome_do_volume`
+
+ao crfiar um container informe o nome do volume criadoao invés da pasta no host
+
+`--mount type=volume, src=nome_do_volume,dst=/data`
+
+para excluir o volume, use:
+
+`docker volume rm nome_do_volume`
+
+Excluindo todos os volumes sem uso
+
+`docker volume prune`
+
+O comando *prune* também pode ser usado para deletar todos os container's
+
+`docker container prune`
+
+Para remover um container de forma forçada em ter que pará-lo primeiro
+
+`docker rm -f nome_do_container`
+
+--21
