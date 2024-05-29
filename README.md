@@ -143,7 +143,7 @@ docker rum -e MYSQL_ROOT_PASSWORD=Senha123 --name mysql-A -d -p 3306:3306 mysql
 
 `CREATE DATABASE TESTE;`
 
-Saia do **MySQK** e do **container** caso não tenha mais nada que queira configurar desta forma
+Saia do **MySQL** e do **container** caso não tenha mais nada que queira configurar desta forma
 
 #### Verificando informações do container
 
@@ -173,7 +173,7 @@ Use um **SGBD** de sua preferência para acessar o banco, lembrando que o IP inf
 
 #### Removendo um container
 
-**OBS:** Só pode remover um container qwue esteja pausado
+**OBS:** Só pode remover um container que esteja pausado
 
 `docker rm nome_do_container`
 
@@ -234,4 +234,19 @@ Para remover um container de forma forçada em ter que pará-lo primeiro
 
 `docker rm -f nome_do_container`
 
---21
+### Redes
+
+#### Listar redes
+
+`docker network ls`
+
+#### Criar uma rede
+
+`docker network create nome_da_rede`
+
+#### Usar a rede criada
+
+`... --network nome_da_rede`
+
+OBS: è possível usar o comando `inspect` para ver os detalhes da rede da menma forma com outros objetos
+
