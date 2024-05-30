@@ -248,5 +248,10 @@ Para remover um container de forma forçada em ter que pará-lo primeiro
 
 `... --network nome_da_rede`
 
-OBS: è possível usar o comando `inspect` para ver os detalhes da rede da menma forma com outros objetos
+OBS: É possível usar o comando `inspect` para ver os detalhes da rede da menma forma com outros objetos
 
+### Criando imagens
+
+Criar imagens permite salvarcustomizar uma imagem já existente definindo valores de variáveis de ambiente, configuraçã ode arquivos, instalação de programas, etc.
+
+#### Exemplo de distro linux com script python
