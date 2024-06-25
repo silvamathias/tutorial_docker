@@ -36,8 +36,10 @@ OBS: Esta opção trava o console. Para destravar, acesse de outro terminal e us
 #### Com terminal interativo
 `docker run -it ubuntu`
 
-Onde: 
+Onde:
+
 -i = interativo
+
 -t = pseudo-terminal
 
 Obs: Esta opção encerra o container ao sair.
@@ -124,9 +126,11 @@ docker rum -e MYSQL_ROOT_PASSWORD=Senha123 --name mysql-A -d -p 3306:3306 mysql
 # -e = configura variáveis de ambiente (MYSQL_ROOT_PASSWORD)
 # --name = nomeia o container
 # -d = deixa rodando em backgroud
-# -p = configura a porta
+# -p = configura a porta sendo: host:container
 # ao final informar a imagem usada (mysql)
 ~~~
+
+Note quê, ao declarar a porta, primeiro informe a porta do host (servidor/máquina onde o docker está instalado) e depois informe a porta do container.
 
 #### Acessando o container para configurá-lo
 
