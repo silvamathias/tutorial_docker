@@ -1,0 +1,8 @@
+FROM ubuntu
+RUN apt update && apt install -y python3 && apt clean
+RUN pip3 install brazilian_register
+COPY app.py /opt/app.py
+CMD python3 /opt/app.py
+
+#precisa instalar o pip3?
+#usar docker build . ubuntu_py_brr (docker build 'pasta onde está o arquivo dockerfile nome da imagem')
