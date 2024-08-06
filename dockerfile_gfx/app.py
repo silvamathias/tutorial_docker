@@ -23,4 +23,5 @@ gx[0].plot(a,y1)
 gx[1].plot(a,y2)
 mp.show()
 
+print(a)
 

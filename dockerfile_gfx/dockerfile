@@ -2,11 +2,7 @@ FROM ubuntu
 RUN apt-get update 
 RUN apt-get install -y python3 
 RUN apt-get clean
-#RUN pip3 install brazilian_register
 RUN apt-get install -y python3-matplotlib
 RUN apt-get install -y python3-numpy
 COPY app.py /opt/app.py
 CMD python3 /opt/app.py
-
-#precisa instalar o pip3?
-#usar docker build . ubuntu_py_brr (docker build 'pasta onde está o arquivo dockerfile nome da imagem')

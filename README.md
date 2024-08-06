@@ -258,4 +258,105 @@ OBS: É possível usar o comando `inspect` para ver os detalhes da rede da menma
 
 Criar imagens permite salvarcustomizar uma imagem já existente definindo valores de variáveis de ambiente, configuraçã ode arquivos, instalação de programas, etc.
 
+Para criar a imagem devesse criar um arquivo de nome **dockerfile** com os comandos para configurar a nova imagem. Abaixo lista dos comandos usados.
+
+**Comando**|**Descrição**
+|:---:|:---|
+ADD|Baixa da internet ou copia do próprio PC pastas ou arquivos para dentro da imagem.
+ARG|Usa variações para o comando build-time.
+CMD|Determina o comando que a imagem irá rodar.
+COPY|Copia apenas do PC pastas ou arquivos para dentro da imagem.
+ENTRYPOINT|Especifica executor padrão
+ENV|Configura variaveis de ambiente.
+EXPOSE|Informar a porta que o aplicativo está escutando
+FROM|Informa uma imagem que será usada como base.
+HEALTHCHECK|Verifica ao iniciar se o container está íntegro.
+LABEL|Adiciona metadados a uma imagem.
+MAINTAINER|Especifique o autor da imagem.
+ONBUILD|Especifique instruções para quando a imagem for usada em uma build.
+RUN|Executa os comandos da build.
+SHELL|Defina o shell padrão da imagem.
+STOPSIGNAL|Configura o sinal de chamada do sistema para sair de um contêiner.
+USER|Defina o ID do usuário e do grupo.
+VOLUME|Cria montagens de volume.
+WORKDIR|Altera diretório de trabalho.
+
 #### Exemplo de distro linux com script python
+
+Na pasta **dockerfile_gfx** está um projeto para criar uma imagem utilizando a distribuição linux *ubuntu* como base e instalando nele o *python*, depois instala as bibliotecas necessárias, importa para a imagem o script python *app.py* e configura este script como programa padrão ao executar o container
+
+Abaixo segue transcrição do arquivo *dockerfile* do projeto. 
+
+~~~shell
+FROM ubuntu
+RUN apt-get update 
+RUN apt-get install -y python3 
+RUN apt-get clean
+RUN apt-get install -y python3-matplotlib
+RUN apt-get install -y python3-numpy
+COPY app.py /opt/app.py
+CMD python3 /opt/app.py
+~~~
+
+Abaixo segue transcrição do script python contido no arquivo *app.py*.
+
+~~~python
+import numpy as np
+import matplotlib.pyplot as mp 
+
+
+# %%
+a = np.linspace(0,4*np.pi,400)
+
+# %%
+y1 = np.sin(a)
+
+# %%
+y2 = np.cos(a)
+
+# %%
+mp.plot(a,y1)
+mp.plot(a,y2)
+mp.show()
+
+# %%
+fig, gx = mp.subplots(2,1)
+gx[0].plot(a,y1)
+gx[1].plot(a,y2)
+mp.show()
+
+print(a)
+~~~
+
+OBS: O arquivo que será importado paa dentro da imagem deve estar na mesma pasta que o arquivo *dockerfile*.
+
+Este script foi feito com o objetivo de plotar gráficos da curva seno e cosseno. Ele irá funcionar caso rode no python mas não aparecerá o gráfico caso rode a imagem criada com ele. Como o objetivo é testar do docker eu mantive este exemplo mas coloquei o comando *print* ao final para que ele imprima uma das listas de números usadas para criar os gráficos. Desta forma o arquivo *dockerfile* foi mantido com bons exemplos de como usar uma distro, atualizar a distro, instalar um programa (python3), instalar uma biblioteca do programa (numpy e matplotlib), copiar um arquivo para dentro da imagem (app.py) e configurar a programação padrão da imagem.
+
+Com os arquivos *dockerfile* e *app.py* criados, basta rodar o comando abaixo de dentro da pasta onde os mesmos estão salvos.
+
+~~~shell
+docker build -t pyfx .
+~~~
+
+O comando `docker build` cria a imagem, a opção `-t` permite informar o nome da imagem e a tag, neste exemplo o nome é *pyfx*, e ao final temos o sinal e ponto `.` para informar que o arquivo *dockerfile* está na pasta atual.
+
+#### Exemplo de distro linux com programa instalado (neofetch)
+
+Na pasta **dockerfile_neofetch** está um projeto para criar uma imagem utilizando a distribuição linux *ubuntu*, atualizar a distro, instalar um pacote (neofetch) e configurá-lo como comando padrão ao executar o container.
+
+Abaixo segue transcrição do arquivo *dockerfile* do projeto.
+
+~~~shell
+FROM ubuntu
+RUN apt-get update && apt-get install -y neofetch
+RUN apt-get clean
+CMD neofetch
+~~~
+
+Com os arquivos *dockerfile* criado, basta rodar o comando abaixo de dentro da pasta onde o mesmo está salvo.
+
+~~~shell
+docker build -t ubuntu_nft .
+~~~
+
+O comando é o mesmo do exemplo anterior, apenas foi informado outro nome para a imagem (ubuntu_nft).
